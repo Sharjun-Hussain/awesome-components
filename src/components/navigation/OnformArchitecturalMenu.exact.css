@@ -1,0 +1,482 @@
+/* ==========================================================================
+   ONFORM ARCHITECTURAL MENU - EXACT 1:1 REPLICATION
+   ========================================================================== */
+
+/* Root scope to avoid polluting global Tailwind */
+.onform-menu-container {
+  --blue: #012bba;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Floating Pill Menu Button */
+.onform-menu-toggle {
+  --menu-ink: #fff;
+  position: fixed;
+  top: clamp(18px, 2.4svh, 32px);
+  right: clamp(20px, 2.1vw, 42px);
+  z-index: 99999;
+  width: 132px;
+  height: 52px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 28px;
+  background: rgba(16, 33, 72, 0.44);
+  color: var(--menu-ink);
+  overflow: hidden;
+  transform: none;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  outline: none;
+  transition: width .42s cubic-bezier(.22, 1, .36, 1),
+              background .3s ease,
+              color .3s ease,
+              border-color .3s ease,
+              transform .35s cubic-bezier(.22, 1, .36, 1);
+}
+
+.onform-menu-toggle::before {
+  content: 'MENU';
+  display: block;
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  color: currentColor;
+  font-family: 'DM Sans', -apple-system, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: .14em;
+  opacity: 1;
+  transition: opacity .16s ease;
+}
+
+.onform-menu-toggle::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #012bba;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1);
+}
+
+.onform-menu-toggle span {
+  position: absolute;
+  z-index: 1;
+  right: 19px;
+  top: 21px;
+  width: 25px;
+  height: 2px;
+  background: transparent;
+  transform: none;
+  transform-origin: 50% 50%;
+  overflow: hidden;
+  transition: top .42s cubic-bezier(.22, 1, .36, 1),
+              right .42s cubic-bezier(.22, 1, .36, 1),
+              transform .42s cubic-bezier(.22, 1, .36, 1);
+}
+
+.onform-menu-toggle span::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1px;
+  background: currentColor;
+  transform: scaleX(1);
+  transform-origin: right center;
+  transition: transform .42s cubic-bezier(.22, 1, .36, 1), background .3s;
+}
+
+.onform-menu-toggle span:last-child {
+  top: 29px;
+  transform: none;
+}
+
+.onform-menu-toggle span:last-child::before {
+  transform: scaleX(.76);
+}
+
+/* Hover state before open */
+@media (hover: hover) and (pointer: fine) {
+  .onform-menu-toggle:not(.is-open):hover {
+    --menu-ink: #fff;
+    border-color: #012bba;
+    transform: translateY(-1px);
+  }
+  .onform-menu-toggle:not(.is-open):hover::after {
+    transform: scaleY(1);
+  }
+}
+
+/* Open Morph: The exact 52px circle with cross bars */
+.onform-menu-toggle.is-open {
+  --menu-ink: #fff;
+  width: 52px;
+  background: rgba(16, 33, 72, 0.72);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: none;
+}
+
+.onform-menu-toggle.is-open::before {
+  opacity: 0;
+}
+
+.onform-menu-toggle.is-open::after {
+  transform: scaleY(0);
+}
+
+.onform-menu-toggle.is-open span {
+  top: 25px;
+  right: 13px;
+  transform: rotate(45deg);
+}
+
+.onform-menu-toggle.is-open span:last-child {
+  transform: rotate(-45deg);
+}
+
+.onform-menu-toggle.is-open span::before {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .onform-menu-toggle.is-open:hover {
+    background: rgba(16, 33, 72, 0.9);
+    border-color: rgba(255, 255, 255, 0.65);
+  }
+}
+
+/* Fullscreen Dialog / Overlay */
+.onform-dialog-nav {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: transparent;
+  z-index: 99990;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.onform-dialog-nav.is-active {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+/* Architectural Scene with Horizontal Shutters */
+.onform-architectural-scene {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  filter: brightness(1) blur(0);
+  transform: scale(1);
+  transform-origin: center;
+  transition: filter .3s ease, transform .3s ease;
+}
+
+.onform-dialog-nav.is-open .onform-architectural-scene {
+  filter: brightness(.75) blur(2.6px);
+  transform: scale(1.06);
+  transition: filter .7s ease 1.05s, transform .7s ease 1.05s;
+}
+
+.onform-menu-shutter {
+  position: absolute;
+  left: 0;
+  top: calc(var(--band) * 20%);
+  width: 100%;
+  height: calc(20% + 1px);
+  overflow: hidden;
+  transform: translate3d(-102%, 0, 0);
+  transition: transform .735s cubic-bezier(.76, 0, .24, 1);
+  transition-delay: calc(var(--band) * 65ms);
+}
+
+.onform-menu-shutter:nth-child(even) {
+  transform: translate3d(102%, 0, 0);
+}
+
+.onform-dialog-nav.is-open .onform-menu-shutter {
+  transform: translate3d(0, 0, 0);
+}
+
+.onform-dialog-nav.is-closing .onform-menu-shutter {
+  transition-duration: .6s;
+  transition-delay: calc(100ms + (4 - var(--band)) * 65ms);
+}
+
+.onform-menu-shutter img {
+  position: absolute;
+  left: 0;
+  top: calc(var(--band) * -20dvh);
+  width: 100%;
+  height: 100dvh;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+.onform-menu-shutter::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(22, 16, 11, 0.35);
+}
+
+/* The Split View Grid */
+.onform-split-view {
+  position: absolute;
+  top: 9dvh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85vw;
+  max-width: 1800px;
+  height: 82dvh;
+  display: grid;
+  grid-template-columns: 1.06fr 1fr;
+  gap: 2vw;
+  z-index: 10;
+}
+
+/* Left Navigation Panels */
+.onform-panels-list {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.onform-single-panel {
+  --surface: #f4f1e9;
+  --ink: #191a1d;
+  --delay: 0s;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--surface);
+  color: var(--ink);
+  opacity: 0;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(20px);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity .3s ease, transform .65s cubic-bezier(.16, 1, .3, 1);
+  transition-delay: 0s;
+}
+
+.onform-single-panel--studio {
+  --surface: #012bba;
+  --ink: #fff;
+  --delay: .065s;
+}
+
+.onform-single-panel--pricing {
+  --surface: #f4f1e9;
+  --ink: #191a1d;
+  --delay: .13s;
+}
+
+.onform-single-panel--contact {
+  --surface: #012bba;
+  --ink: #fff;
+  --delay: .195s;
+}
+
+/* On open, panels slide up with delay */
+.onform-dialog-nav.is-open .onform-single-panel {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(.73s + var(--delay));
+}
+
+.onform-dialog-nav.is-open .onform-single-panel:hover,
+.onform-dialog-nav.is-open .onform-single-panel:focus-visible {
+  transition-delay: 0s;
+}
+
+.onform-dialog-nav.is-closing .onform-single-panel {
+  opacity: 0;
+  transform: translateY(18px);
+  transition-duration: .18s;
+  transition-delay: 0s;
+  pointer-events: none;
+}
+
+.onform-panel-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 2.4vw;
+}
+
+.onform-panel-title-text {
+  font-family: Impact, 'Arial Narrow', sans-serif;
+  font-weight: 400;
+  font-size: clamp(48px, min(8.2vw, 16dvh), 160px);
+  line-height: 1;
+  letter-spacing: -.03em;
+  text-transform: capitalize;
+}
+
+.onform-panel-svg-arrow {
+  width: clamp(42px, min(6vw, 10dvh), 88px);
+  flex: none;
+  transition: transform .5s cubic-bezier(.16, 1, .3, 1);
+}
+
+.onform-panel-svg-arrow path {
+  transform-box: view-box;
+  transition: transform .45s cubic-bezier(.22, 1, .36, 1);
+}
+
+.onform-panel-arrow-shaft {
+  transform-origin: 8px 56px;
+}
+
+.onform-panel-arrow-head {
+  transform-origin: 55px 9px;
+}
+
+@keyframes onform-arrow-shaft-spring {
+  0% { transform: scale(1); }
+  20% { transform: scale(.98); }
+  65% { transform: scale(1.09); }
+  100% { transform: scale(1.07); }
+}
+
+@keyframes onform-arrow-head-spring {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-.9px, .9px); }
+  65% { transform: translate(4.1px, -4.1px); }
+  100% { transform: translate(3.2px, -3.2px); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .onform-single-panel:hover .onform-panel-arrow-shaft {
+    animation: onform-arrow-shaft-spring .6s cubic-bezier(.22, 1, .36, 1) both;
+  }
+  .onform-single-panel:hover .onform-panel-arrow-head {
+    animation: onform-arrow-head-spring .6s cubic-bezier(.22, 1, .36, 1) both;
+  }
+}
+
+/* Right Image Gallery */
+.onform-gallery-anchor {
+  position: relative;
+  display: block;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #281b14;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .65s ease, transform 1s cubic-bezier(.16, 1, .3, 1);
+}
+
+.onform-dialog-nav.is-open .onform-gallery-anchor {
+  opacity: 1;
+  transform: none;
+  transition-delay: .8s;
+}
+
+.onform-dialog-nav.is-closing .onform-gallery-anchor {
+  opacity: 0;
+  transform: translateY(18px);
+  transition-duration: .18s;
+  transition-delay: 0s;
+  pointer-events: none;
+}
+
+.onform-preview-picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 0;
+  transform: scale(1.025);
+  transition: opacity .55s ease, transform 1s cubic-bezier(.16, 1, .3, 1);
+  pointer-events: none;
+}
+
+.onform-preview-picture.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.onform-preview-picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.onform-preview-picture--studio img {
+  object-position: 50% 35%;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 900px) {
+  .onform-split-view {
+    top: 9dvh;
+    width: 86vw;
+    height: auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  .onform-panels-list {
+    height: 48dvh;
+    gap: 8px;
+  }
+  .onform-panel-face {
+    padding: 0 5vw;
+  }
+  .onform-panel-title-text {
+    font-size: clamp(46px, min(17vw, 9.5dvh), 100px);
+  }
+  .onform-panel-svg-arrow {
+    width: clamp(36px, 10vw, 65px);
+  }
+  .onform-gallery-anchor {
+    height: auto;
+    aspect-ratio: 16/9;
+  }
+}
+
+/* Hero Canvas inside gallery viewer */
+.onform-hero-showcase {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  border-radius: 24px;
+  background: radial-gradient(circle at 50% 30%, #1e1713 0%, #0d0a08 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}

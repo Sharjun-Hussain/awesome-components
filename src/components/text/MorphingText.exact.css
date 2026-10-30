@@ -1,0 +1,7 @@
+/* MorphingText specific helper styles without global Tailwind resets */
+.morphing-text-root {
+  display: inline-block;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: baseline;
+}

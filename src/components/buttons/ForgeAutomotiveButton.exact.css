@@ -1,0 +1,220 @@
+/* ==========================================================================
+   FORGE AUTOMOTIVE BUTTON - EXACT 1:1 REPLICATION WITH CONIC SHIMMER BORDER
+   ========================================================================== */
+
+@property --forge-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes forge-gradient-rotate {
+  to {
+    --forge-angle: 360deg;
+  }
+}
+
+.forge-btn-scope {
+  --forge-bc1: #0c0c0c;
+  --forge-bc2: #161616;
+  --forge-bc3: #410306;
+  --forge-bc4: #c5a064;
+  --forge-bc5: #f2f1ed;
+  --forge-easing-bezzy2: cubic-bezier(0.43, 0.195, 0.02, 1);
+  --forge-ease: ease-in-out;
+  --forge-dur: 0.5s;
+}
+
+/* Base Forge Button (.gjuatN) */
+.forge-btn {
+  --play-state: running;
+  --btn-border: color-mix(in srgb, var(--forge-bc5) 10%, transparent);
+  --btn-border-hover: color-mix(in srgb, var(--forge-bc5) 40%, transparent);
+  --btn-bg: color-mix(in srgb, #000000 10%, transparent);
+  --btn-text: var(--forge-bc5);
+  --btn-shadow-text: color-mix(in srgb, var(--forge-bc5) 60%, transparent);
+  --beam-color: #ffffff;
+  --beam-start: 25%;
+  --beam-end: 75%;
+  --beam-percent: 5%;
+
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  white-space: nowrap;
+  width: max-content;
+  padding: 1.4rem 2.8rem;
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  text-decoration: none;
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  transition: border-color var(--forge-ease) var(--forge-dur);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Forge Conic Gradient Shimmer Border Beam (> i) */
+.forge-btn__beam {
+  --stroke: 1px;
+  position: absolute;
+  inset: calc(var(--stroke) * -1);
+  z-index: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  padding: var(--stroke);
+  background: conic-gradient(
+    from var(--forge-angle) at center,
+    transparent calc(var(--beam-start) - var(--beam-percent) * 2),
+    transparent calc(var(--beam-start) - var(--beam-percent)),
+    var(--beam-color) var(--beam-start),
+    transparent calc(var(--beam-start) + var(--beam-percent)),
+    transparent calc(var(--beam-start) + var(--beam-percent) * 2),
+    transparent calc(var(--beam-end) - var(--beam-percent) * 2),
+    transparent calc(var(--beam-end) - var(--beam-percent)),
+    var(--beam-color) var(--beam-end),
+    transparent calc(var(--beam-end) + var(--beam-percent)),
+    transparent calc(var(--beam-end) + var(--beam-percent) * 2)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: forge-gradient-rotate 4.5s linear infinite var(--play-state);
+  opacity: 0.85;
+  transition: opacity 0.5s var(--forge-ease);
+}
+
+/* Button outer text wrapper: overflow clip for the vertical roll */
+.forge-btn__label {
+  font-family: -apple-system, BlinkMacSystemFont, "Geist", Arial, Helvetica, sans-serif;
+  display: block;
+  font-style: normal;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 2;
+  letter-spacing: 0.3rem;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+  overflow: clip;
+  transition: opacity var(--forge-ease) var(--forge-dur),
+              letter-spacing var(--forge-ease) var(--forge-dur);
+}
+
+@media (min-width: 700px) {
+  .forge-btn__label {
+    font-size: 1rem;
+  }
+}
+
+/* Individual letter span */
+.forge-btn__char {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  text-shadow: var(--btn-shadow-text) 0px -4em 0px;
+  transition: transform 0.5s var(--forge-easing-bezzy2);
+  transform: translateY(0);
+}
+
+/* Hover state: Border illuminates, characters translate downwards and shadow rolls in */
+@media (hover: hover) and (pointer: fine) {
+  .forge-btn:hover {
+    cursor: pointer;
+    border-color: var(--btn-border-hover);
+  }
+
+  .forge-btn:hover .forge-btn__label {
+    opacity: 0.6;
+  }
+
+  .forge-btn:hover .forge-btn__char {
+    transform: translateY(4em);
+  }
+
+  .forge-btn:hover .forge-btn__beam {
+    opacity: 1;
+  }
+}
+
+.forge-btn:focus-visible {
+  outline: 1px dashed color-mix(in srgb, var(--forge-bc5) 60%, transparent);
+  outline-offset: 2px;
+  border-color: color-mix(in srgb, var(--forge-bc3) 40%, transparent);
+}
+
+.forge-btn[disabled],
+.forge-btn.is-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.forge-btn[disabled] .forge-btn__beam,
+.forge-btn.is-disabled .forge-btn__beam {
+  animation-play-state: paused;
+  opacity: 0;
+}
+
+/* ==========================================================================
+   THEME EDITIONS
+   ========================================================================== */
+
+/* 1. Atelier Signature (Exact Forge site default) */
+.forge-btn--default {
+  --btn-border: color-mix(in srgb, var(--forge-bc5) 12%, transparent);
+  --btn-border-hover: color-mix(in srgb, var(--forge-bc5) 45%, transparent);
+  --btn-bg: color-mix(in srgb, var(--forge-bc1) 30%, transparent);
+  --btn-text: var(--forge-bc5);
+  --btn-shadow-text: color-mix(in srgb, var(--forge-bc5) 60%, transparent);
+  --beam-color: #ffffff;
+}
+
+/* 2. Bespoke Gold (Forge Prestige Edition) */
+.forge-btn--gold {
+  --btn-border: color-mix(in srgb, var(--forge-bc4) 20%, transparent);
+  --btn-border-hover: color-mix(in srgb, var(--forge-bc4) 65%, transparent);
+  --btn-bg: color-mix(in srgb, var(--forge-bc4) 4%, transparent);
+  --btn-text: var(--forge-bc4);
+  --btn-shadow-text: color-mix(in srgb, var(--forge-bc4) 75%, transparent);
+  --beam-color: var(--forge-bc4);
+}
+
+/* 3. Urus / Performance Wine */
+.forge-btn--wine {
+  --btn-border: color-mix(in srgb, #ff2233 22%, transparent);
+  --btn-border-hover: color-mix(in srgb, #ff3344 65%, transparent);
+  --btn-bg: color-mix(in srgb, var(--forge-bc3) 30%, transparent);
+  --btn-text: var(--forge-bc5);
+  --btn-shadow-text: #ff5566;
+  --beam-color: #ff3b4e;
+}
+
+/* 4. Pure Solid Silver */
+.forge-btn--light {
+  --btn-border: rgba(255, 255, 255, 0.4);
+  --btn-border-hover: rgba(255, 255, 255, 0.95);
+  --btn-bg: rgba(255, 255, 255, 0.08);
+  --btn-text: #ffffff;
+  --btn-shadow-text: rgba(255, 255, 255, 0.8);
+  --beam-color: #ffffff;
+}
+
+/* Canvas Container */
+.forge-showcase-canvas {
+  position: relative;
+  width: 100%;
+  background: #0c0c0c;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: clamp(36px, 5vw, 64px) 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.8);
+}

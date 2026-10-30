@@ -1,0 +1,19 @@
+/* PerspectiveTunnelHero custom utility styles without global Tailwind resets */
+.pth-grid {
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 60%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 60%, transparent 100%);
+}
+
+.dark .pth-grid {
+  background-image: radial-gradient(#1e1b4b 1px, transparent 1px);
+}
+
+.pth-radial-core {
+  background-image: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+}
+
+.dark .pth-radial-core {
+  background-image: radial-gradient(circle at center, rgba(99, 102, 241, 0.2) 0%, transparent 75%);
+}
