@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import './RidgelineDitherFooter.exact.css'
 
 export const meta = {

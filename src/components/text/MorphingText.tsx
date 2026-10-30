@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useId, useMemo } from "react";
+import { useState, useRef, useEffect, useId, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import "./MorphingText.exact.css";
 

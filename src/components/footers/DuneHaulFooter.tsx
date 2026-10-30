@@ -1065,10 +1065,10 @@ export function DuneHaulFooter({
 
         const headlampFade = Math.exp(-sinceHonk / 260);
         if (truckParts.beams) {
-          (truckParts.beams as HTMLElement).style.opacity = String(conf.night ? 0.85 : headlampFade * 0.9);
+          (truckParts.beams as SVGGraphicsElement).style.opacity = String(conf.night ? 0.85 : headlampFade * 0.9);
         }
         if (truckParts.flare) {
-          (truckParts.flare as HTMLElement).style.opacity = String(Math.max(conf.night ? 0.8 : 0, headlampFade));
+          (truckParts.flare as SVGGraphicsElement).style.opacity = String(Math.max(conf.night ? 0.8 : 0, headlampFade));
         }
 
         // Dust particle puffs behind wheels

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './OnformArchitecturalMenu.exact.css'
 
 export const meta = {
