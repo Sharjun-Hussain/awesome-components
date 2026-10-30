@@ -1,6 +1,6 @@
-# Awesome Components
+# Lusion UI
 
-A visual, self-updating gallery for React components. The root page groups every
+A visual, self-updating gallery for high-end motion & editorial React components. The root page groups every
 component by category with a live thumbnail and search; each component gets a
 detail page with a full preview, reload button and copyable source.
 

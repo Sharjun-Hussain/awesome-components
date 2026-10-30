@@ -131,10 +131,10 @@ export function Layout() {
             </span>
             <span className="leading-tight">
               <span className="block text-sm font-semibold tracking-tight text-zinc-900 dark:text-white">
-                Awesome
+                Lusion
               </span>
               <span className="block text-[11px] font-medium tracking-widest text-zinc-400 uppercase">
-                Components
+                UI Library
               </span>
             </span>
           </Link>
@@ -240,7 +240,7 @@ export function Layout() {
             <Menu className="size-4" />
           </button>
           <Link to="/" className="text-sm font-semibold text-zinc-900 dark:text-white">
-            Awesome Components
+            Lusion UI
           </Link>
           <span className="ml-auto rounded-full bg-violet-500/10 px-2 py-1 text-[11px] font-medium text-violet-600 dark:text-violet-300">
             {allEntries.length} demos

@@ -65,7 +65,7 @@ export function HomePage() {
           <h1 className="mt-5 max-w-2xl text-4xl font-semibold tracking-tight text-balance text-zinc-900 sm:text-5xl dark:text-white">
             Build with{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-orange-400 bg-clip-text text-transparent">
-              awesome components
+              Lusion components
             </span>
           </h1>
 
